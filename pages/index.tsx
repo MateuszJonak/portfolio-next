@@ -8,42 +8,87 @@ import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
+import IconButton, {
+  IconButtonTypeMap,
+  IconButtonProps,
+} from '@material-ui/core/IconButton';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import DescriptionIcon from '@material-ui/icons/Description';
+import { ExtendButtonBase } from '@material-ui/core/ButtonBase';
 import { styled, colors } from '../src/theme';
 
-const Index: NextPage = () => (
-  <>
-    <Head>
-      <title>Mateusz Jonak</title>
-    </Head>
-    <ContainerFullHeight>
-      <Box
-        height="100vh"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Card elevation={0}>
-          <CardContentThick>
-            <Box display="flex" justifyContent="center" mb={2}>
-              <AvatarImage alt="Mateusz Jonak" src="/cv.jpg" />
-            </Box>
-            <Typography variant="h4" component="h1">
-              Mateusz Jonak
-            </Typography>
-            <Box my={2}>
-              <Divider />
-            </Box>
-            <Box color={colors.BLUE_GREEN} textAlign="center">
-              <Typography variant="h6" component="h2">
-                JavaScript Developer
-              </Typography>
-            </Box>
-          </CardContentThick>
-        </Card>
-      </Box>
-    </ContainerFullHeight>
-  </>
-);
+const Index: NextPage = () => {
+  return (
+    <>
+      <Head>
+        <title>Mateusz Jonak</title>
+      </Head>
+      <ContainerFullHeight>
+        <Box
+          height="100vh"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Card elevation={0}>
+            <CardContentThick>
+              <Box display="flex" justifyContent="center" mb={2}>
+                <AvatarImage alt="Mateusz Jonak" src="/cv.jpg" />
+              </Box>
+              <Box textAlign="center">
+                <Typography variant="h4">Mateusz Jonak</Typography>
+              </Box>
+              <Box my={2}>
+                <Divider />
+              </Box>
+              <Box color={colors.BLUE_GREEN} textAlign="center" mb={2}>
+                <Typography400
+                  variant="h6"
+                  component="h2"
+                  gutterBottom
+                  color="textSecondary"
+                >
+                  JavaScript Developer
+                </Typography400>
+              </Box>
+              <Box display="flex" justifyContent="center">
+                <IconButtonSmall
+                  component="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://drive.google.com/open?id=1XIyHRUGSbtSWwNm405jo3uuj8x3kecgt"
+                  title="Curriculum vitae"
+                >
+                  <DescriptionIcon htmlColor="#ffb74d" />
+                </IconButtonSmall>
+                <IconButtonSmall
+                  component="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://github.com/MateuszJonak"
+                  title="Github Profile"
+                >
+                  <GitHubIcon htmlColor="#FFFFFF" />
+                </IconButtonSmall>
+                <IconButtonSmall
+                  component="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.linkedin.com/in/mateusz-jonak"
+                  title="Linkedin Profile"
+                  color="primary"
+                >
+                  <LinkedInIcon />
+                </IconButtonSmall>
+              </Box>
+            </CardContentThick>
+          </Card>
+        </Box>
+      </ContainerFullHeight>
+    </>
+  );
+};
 
 const ContainerFullHeight = styled(Container)`
   height: 100vh;
@@ -58,5 +103,17 @@ const AvatarImage = styled(Avatar)`
   width: 112px;
   height: 112px;
 `;
+
+const Typography400 = styled(Typography)`
+  font-weight: 400;
+` as typeof Typography;
+
+const IconButtonSmall = styled(IconButton)`
+  width: 40px;
+  height: 40px;
+  &:not(:last-child) {
+    margin-right: ${({ theme }) => theme.spacing(1)}px;
+  }
+` as ExtendButtonBase<IconButtonTypeMap<IconButtonProps>>;
 
 export default Index;

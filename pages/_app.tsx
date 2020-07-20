@@ -47,10 +47,10 @@ const globalStyles = css`
       transform: scale(1);
       background-image: linear-gradient(
           60deg,
-          rgba(255, 165, 150, 0.502) 9%,
-          rgba(0, 228, 255, 0.353) 100%
+          rgba(48, 48, 48, 0.5) 9%,
+          rgba(66, 66, 66, 0.85) 100%
         ),
-        url('./bg.jpg');
+        url('./bg.jpeg');
       background-position: 0% 0%, center;
       background-repeat: repeat, no-repeat;
       background-size: cover, cover;
