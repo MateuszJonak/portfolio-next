@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useTransition, useSpring, animated, config } from 'react-spring';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -19,6 +20,14 @@ import { ExtendButtonBase } from '@material-ui/core/ButtonBase';
 import { styled, colors } from '../src/theme';
 
 const Index: NextPage = () => {
+  const [expanded, setExpanded] = useState(false);
+  const props = useSpring({
+    config: config.stiff,
+    from: { width: '20%', height: '400px' },
+    width: expanded ? '100%' : '20%',
+    height: expanded ? '600px' : '400px',
+  });
+
   return (
     <>
       <Head>
@@ -31,59 +40,66 @@ const Index: NextPage = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Card elevation={0}>
-            <CardContentThick>
-              <Box display="flex" justifyContent="center" mb={2}>
-                <AvatarImage alt="Mateusz Jonak" src="/cv.jpg" />
-              </Box>
-              <Box textAlign="center">
-                <Typography variant="h4">Mateusz Jonak</Typography>
-              </Box>
-              <Box my={2}>
-                <Divider />
-              </Box>
-              <Box color={colors.BLUE_GREEN} textAlign="center" mb={2}>
-                <Typography400
-                  variant="h6"
-                  component="h2"
-                  gutterBottom
-                  color="textSecondary"
-                >
-                  JavaScript Developer
-                </Typography400>
-              </Box>
-              <Box display="flex" justifyContent="center">
-                <IconButtonSmall
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://drive.google.com/open?id=1XIyHRUGSbtSWwNm405jo3uuj8x3kecgt"
-                  title="Curriculum vitae"
-                >
-                  <DescriptionIcon htmlColor="#ffb74d" />
-                </IconButtonSmall>
-                <IconButtonSmall
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://github.com/MateuszJonak"
-                  title="Github Profile"
-                >
-                  <GitHubIcon htmlColor="#FFFFFF" />
-                </IconButtonSmall>
-                <IconButtonSmall
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.linkedin.com/in/mateusz-jonak"
-                  title="Linkedin Profile"
-                  color="primary"
-                >
-                  <LinkedInIcon />
-                </IconButtonSmall>
-              </Box>
-            </CardContentThick>
-          </Card>
+          <AnimatedCard
+            elevation={0}
+            style={{ width: props.width, height: props.height }}
+            onClick={() => setExpanded((expanded) => !expanded)}
+          >
+            {expanded && <div style={{ height: '100%', width: '100%' }}></div>}
+            {!expanded && (
+              <CardContentThick>
+                <Box display="flex" justifyContent="center" mb={2}>
+                  <AvatarImage alt="Mateusz Jonak" src="/cv.jpg" />
+                </Box>
+                <Box textAlign="center">
+                  <Typography variant="h4">Mateusz Jonak</Typography>
+                </Box>
+                <Box my={2}>
+                  <Divider />
+                </Box>
+                <Box color={colors.BLUE_GREEN} textAlign="center" mb={2}>
+                  <Typography400
+                    variant="h6"
+                    component="h2"
+                    gutterBottom
+                    color="textSecondary"
+                  >
+                    JavaScript Developer
+                  </Typography400>
+                </Box>
+                <Box display="flex" justifyContent="center">
+                  <IconButtonSmall
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://drive.google.com/open?id=1XIyHRUGSbtSWwNm405jo3uuj8x3kecgt"
+                    title="Curriculum vitae"
+                  >
+                    <DescriptionIcon htmlColor="#ffb74d" />
+                  </IconButtonSmall>
+                  <IconButtonSmall
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://github.com/MateuszJonak"
+                    title="Github Profile"
+                  >
+                    <GitHubIcon htmlColor="#FFFFFF" />
+                  </IconButtonSmall>
+                  <IconButtonSmall
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/mateusz-jonak"
+                    title="Linkedin Profile"
+                    color="primary"
+                  >
+                    <LinkedInIcon />
+                  </IconButtonSmall>
+                </Box>
+              </CardContentThick>
+            )}
+          </AnimatedCard>
         </Box>
       </ContainerFullHeight>
     </>
@@ -94,10 +110,12 @@ const ContainerFullHeight = styled(Container)`
   height: 100vh;
 `;
 
-const CardContentThick = styled(CardContent)`
+const AnimatedCard = animated(Card);
+
+const CardContentThick = animated(styled(CardContent)`
   padding-left: ${({ theme }) => theme.spacing(3)}px;
   padding-right: ${({ theme }) => theme.spacing(3)}px;
-`;
+`);
 
 const AvatarImage = styled(Avatar)`
   width: 112px;
