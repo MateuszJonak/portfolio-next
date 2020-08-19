@@ -1,0 +1,23 @@
+schema:
+  - https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}:
+      headers:
+        Authorization: Bearer ${CONTENTFUL_ACCESS_TOKEN}
+documents: 'src/graphql/**/*.ts'
+hooks:
+  afterAllFileWrite:
+    - eslint --fix src/graphql/**/*.generated.tsx
+generates:
+  src/graphql/types.generated.tsx:
+    plugins:
+      - 'typescript'
+  src/graphql/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: types.generated.tsx
+    plugins:
+      - typescript-operations
+    config:
+      withHOC: false
+      withHooks: true
+      withComponent: false
