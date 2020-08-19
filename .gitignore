@@ -29,5 +29,11 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# env file
+.env
+
 # IDE
 .vscode
+
+# graphql generated
+src/graphql/**/*.generated.*

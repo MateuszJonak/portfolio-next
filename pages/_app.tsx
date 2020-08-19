@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { AppProps } from 'next/app';
 import {
   ThemeProvider as MuiThemeProvider,
@@ -20,15 +21,24 @@ const MyApp: React.FC<AppProps> = (props) => {
   }, []);
 
   return (
-    <MuiThemeProvider theme={muiTheme}>
-      <ThemeProvider theme={muiTheme}>
-        <StylesProvider injectFirst>
-          <CssBaseline />
-          <Global styles={globalStyles} />
-          <Component {...pageProps} />
-        </StylesProvider>
-      </ThemeProvider>
-    </MuiThemeProvider>
+    <>
+      <Head>
+        <meta name="theme-color" content={muiTheme.palette.primary.main} />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
+      <MuiThemeProvider theme={muiTheme}>
+        <ThemeProvider theme={muiTheme}>
+          <StylesProvider injectFirst>
+            <CssBaseline />
+            <Global styles={globalStyles} />
+            <Component {...pageProps} />
+          </StylesProvider>
+        </ThemeProvider>
+      </MuiThemeProvider>
+    </>
   );
 };
 

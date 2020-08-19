@@ -1,28 +1,24 @@
 import React from 'react';
-import { NextPage } from 'next';
+import { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Divider from '@material-ui/core/Divider';
-import IconButton, {
-  IconButtonTypeMap,
-  IconButtonProps,
-} from '@material-ui/core/IconButton';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import DescriptionIcon from '@material-ui/icons/Description';
-import { ExtendButtonBase } from '@material-ui/core/ButtonBase';
-import { styled, colors } from '../src/theme';
+import { styled } from '../src/theme';
+import { ProfileCard } from '../src/components/ProfileCard';
+import { client } from '../lib/apolloClient';
+import { getCard } from '../src/graphql/queries/card';
+import {
+  GetCardQuery,
+  CardFragment,
+} from '../src/graphql/queries/card.generated';
 
-const Index: NextPage = () => {
+type Props = { card?: CardFragment };
+
+const Index: NextPage<Props> = ({ card }) => {
   return (
     <>
       <Head>
-        <title>Mateusz Jonak</title>
+        <title>{card?.name}</title>
       </Head>
       <ContainerFullHeight>
         <Box
@@ -31,89 +27,28 @@ const Index: NextPage = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Card elevation={0}>
-            <CardContentThick>
-              <Box display="flex" justifyContent="center" mb={2}>
-                <AvatarImage alt="Mateusz Jonak" src="/cv.jpg" />
-              </Box>
-              <Box textAlign="center">
-                <Typography variant="h4">Mateusz Jonak</Typography>
-              </Box>
-              <Box my={2}>
-                <Divider />
-              </Box>
-              <Box color={colors.BLUE_GREEN} textAlign="center" mb={2}>
-                <Typography400
-                  variant="h6"
-                  component="h2"
-                  gutterBottom
-                  color="textSecondary"
-                >
-                  JavaScript Developer
-                </Typography400>
-              </Box>
-              <Box display="flex" justifyContent="center">
-                <IconButtonSmall
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://drive.google.com/open?id=1XIyHRUGSbtSWwNm405jo3uuj8x3kecgt"
-                  title="Curriculum vitae"
-                >
-                  <DescriptionIcon htmlColor="#ffb74d" />
-                </IconButtonSmall>
-                <IconButtonSmall
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://github.com/MateuszJonak"
-                  title="Github Profile"
-                >
-                  <GitHubIcon htmlColor="#FFFFFF" />
-                </IconButtonSmall>
-                <IconButtonSmall
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.linkedin.com/in/mateusz-jonak"
-                  title="Linkedin Profile"
-                  color="primary"
-                >
-                  <LinkedInIcon />
-                </IconButtonSmall>
-              </Box>
-            </CardContentThick>
-          </Card>
+          {card && <ProfileCard card={card} />}
         </Box>
       </ContainerFullHeight>
     </>
   );
 };
 
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const { data } = await client.query<GetCardQuery>({
+    query: getCard,
+  });
+
+  return {
+    props: {
+      card: data.cardCollection.items[0],
+    },
+    revalidate: 1,
+  };
+};
+
 const ContainerFullHeight = styled(Container)`
   height: 100vh;
 `;
-
-const CardContentThick = styled(CardContent)`
-  padding-left: ${({ theme }) => theme.spacing(3)}px;
-  padding-right: ${({ theme }) => theme.spacing(3)}px;
-`;
-
-const AvatarImage = styled(Avatar)`
-  width: 112px;
-  height: 112px;
-`;
-
-const Typography400 = styled(Typography)`
-  font-weight: 400;
-` as typeof Typography;
-
-const IconButtonSmall = styled(IconButton)`
-  width: 40px;
-  height: 40px;
-  &:not(:last-child) {
-    margin-right: ${({ theme }) => theme.spacing(1)}px;
-  }
-` as ExtendButtonBase<IconButtonTypeMap<IconButtonProps>>;
 
 export default Index;
