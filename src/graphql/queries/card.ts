@@ -1,17 +1,5 @@
 import { gql } from '@apollo/client';
-
-export const asset = gql`
-  fragment Asset on Asset {
-    title
-    description
-    contentType
-    fileName
-    size
-    url
-    width
-    height
-  }
-`;
+import { asset } from './asset';
 
 export const card = gql`
   fragment Card on Card {
@@ -24,9 +12,9 @@ export const card = gql`
   ${asset}
 `;
 
-export const getCard = gql`
-  query GetCard {
-    cardCollection(limit: 1) {
+export const getCards = gql`
+  query GetCards($limit: Int, $preview: Boolean) {
+    cardCollection(limit: $limit, preview: $preview) {
       items {
         ...Card
       }
