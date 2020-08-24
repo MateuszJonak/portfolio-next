@@ -20,12 +20,20 @@ type Props = {
   card: CardFragment;
 };
 
+const avatarWidth = 112;
+
 export const ProfileCard: React.FC<Props> = ({ card }) => {
   return (
     <Card elevation={0}>
       <CardContentThick>
         <Box display="flex" justifyContent="center" mb={2}>
-          <AvatarImage alt={card.name} src={card.avatar.url} />
+          <AvatarImage
+            alt={card.name}
+            src={card.avatar.url + `?w=${avatarWidth * 2}`}
+            srcSet={`${card.avatar.url}?w=${avatarWidth},
+              ${card.avatar.url}?w=${avatarWidth * 1.5} 1.5x,
+              ${card.avatar.url}?w=${avatarWidth * 2} 2x`}
+          />
         </Box>
         <Box textAlign="center">
           <Typography variant="h4">{card.name}</Typography>
@@ -84,8 +92,8 @@ const CardContentThick = styled(CardContent)`
 `;
 
 const AvatarImage = styled(Avatar)`
-  width: 112px;
-  height: 112px;
+  width: ${avatarWidth}px;
+  height: ${avatarWidth}px;
 `;
 
 const Typography400 = styled(Typography)`
