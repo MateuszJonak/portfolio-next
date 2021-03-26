@@ -6,8 +6,7 @@ import {
   StylesProvider,
 } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Global, css } from '@emotion/core';
-import { ThemeProvider } from 'emotion-theming';
+import { Global, css, ThemeProvider } from '@emotion/react';
 import { muiTheme } from '../src/theme/muiTheme';
 
 const MyApp: React.FC<AppProps> = (props) => {
