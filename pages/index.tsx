@@ -18,10 +18,12 @@ import { AlertPreview } from '../src/components/AlertPreview';
 type Props = { card: CardFragment | null; preview: boolean };
 
 const Index: NextPage<Props> = ({ card, preview }) => {
+  const pageTitle = card?.name && card?.role && `${card.name} - ${card.role}`;
   return (
     <>
       <Head>
-        <title>{card?.name || ''}</title>
+        <title>{pageTitle || ''}</title>
+        <meta name="description" content="Curriculum vitae" />
       </Head>
       <BackgroundWrap>
         <Image
