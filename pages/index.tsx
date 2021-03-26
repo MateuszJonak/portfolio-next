@@ -3,7 +3,7 @@ import { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import { styled } from '../src/theme';
+import styled from '@emotion/styled';
 import { ProfileCard } from '../src/components/ProfileCard';
 import { client } from '../lib/apolloClient';
 import { getCards } from '../src/graphql/queries/card';

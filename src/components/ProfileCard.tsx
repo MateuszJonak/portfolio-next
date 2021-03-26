@@ -13,7 +13,8 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { ExtendButtonBase } from '@material-ui/core/ButtonBase';
-import { styled, colors } from '../theme';
+import styled from '@emotion/styled';
+import { colors } from '../theme';
 import { CardFragment } from '../graphql/queries/card.generated';
 
 type Props = {
