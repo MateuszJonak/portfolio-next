@@ -84,16 +84,14 @@ const globalStyles = css`
       pointer-events: none;
       transform: scale(1);
       background-image: linear-gradient(
-          60deg,
-          rgba(48, 48, 48, 0.5) 9%,
-          rgba(66, 66, 66, 0.85) 100%
-        ),
-        url('./bg.jpeg');
-      background-position: 0% 0%, center;
-      background-repeat: repeat, no-repeat;
-      background-size: cover, cover;
+        60deg,
+        rgba(48, 48, 48, 0.5) 9%,
+        rgba(66, 66, 66, 0.85) 100%
+      );
+      background-position: 0% 0%;
+      background-repeat: repeat;
+      background-size: cover;
       background-attachment: scroll;
-      background-color: #ffffff;
     }
   }
 `;

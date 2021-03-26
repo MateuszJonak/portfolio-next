@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import styled from '@emotion/styled';
@@ -22,6 +23,15 @@ const Index: NextPage<Props> = ({ card, preview }) => {
       <Head>
         <title>{card?.name || ''}</title>
       </Head>
+      <BackgroundWrap>
+        <Image
+          alt="black hole"
+          src="/bg.jpeg"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+        />
+      </BackgroundWrap>
       <ContainerFullHeight>
         <Box
           height="100%"
@@ -75,6 +85,13 @@ export const getStaticProps: GetStaticProps<Props> = async ({
 
 const ContainerFullHeight = styled(Container)`
   height: 100%;
+`;
+const BackgroundWrap = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  z-index: -2;
 `;
 
 export default Index;
