@@ -34,7 +34,7 @@ const Index: NextPage<Props> = ({ card, preview }) => {
           quality={100}
         />
       </BackgroundWrap>
-      <ContainerFullHeight>
+      <Container sx={{ height: '100%' }}>
         <Box
           height="100%"
           display="flex"
@@ -43,7 +43,7 @@ const Index: NextPage<Props> = ({ card, preview }) => {
         >
           {card && <ProfileCard card={card} />}
         </Box>
-      </ContainerFullHeight>
+      </Container>
       {preview && <AlertPreview />}
     </>
   );
@@ -85,9 +85,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({
   };
 };
 
-const ContainerFullHeight = styled(Container)`
-  height: 100%;
-`;
 const BackgroundWrap = styled.div`
   position: fixed;
   height: 100vh;

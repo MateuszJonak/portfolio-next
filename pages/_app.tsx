@@ -6,13 +6,18 @@ import {
   StylesProvider,
 } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Global, css, ThemeProvider } from '@emotion/react';
+import { Global, css, ThemeProvider, CacheProvider } from '@emotion/react';
 import { muiTheme } from '../src/theme/muiTheme';
+import createCache from '@emotion/cache';
+
+const key = 'cv';
+export const cache = createCache({ key });
 
 const MyApp: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props;
 
   React.useEffect(() => {
+    // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
@@ -20,7 +25,7 @@ const MyApp: React.FC<AppProps> = (props) => {
   }, []);
 
   return (
-    <>
+    <CacheProvider value={cache}>
       <Head>
         <link
           rel="icon"
@@ -61,7 +66,7 @@ const MyApp: React.FC<AppProps> = (props) => {
           </StylesProvider>
         </ThemeProvider>
       </MuiThemeProvider>
-    </>
+    </CacheProvider>
   );
 };
 

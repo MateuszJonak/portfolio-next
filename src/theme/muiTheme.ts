@@ -3,7 +3,7 @@ import { blue } from '@material-ui/core/colors';
 
 export const muiTheme = createMuiTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
       light: blue[100],
       main: blue[200],

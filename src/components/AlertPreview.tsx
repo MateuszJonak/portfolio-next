@@ -1,6 +1,6 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@material-ui/core/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 

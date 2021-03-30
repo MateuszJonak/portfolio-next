@@ -26,7 +26,7 @@ const avatarWidth = 112;
 export const ProfileCard: React.FC<Props> = ({ card }) => {
   return (
     <Card elevation={0}>
-      <CardContentThick>
+      <CardContent sx={{ px: 3 }}>
         <Box display="flex" justifyContent="center" mb={2}>
           <AvatarImage
             alt={card.name}
@@ -43,14 +43,15 @@ export const ProfileCard: React.FC<Props> = ({ card }) => {
           <Divider />
         </Box>
         <Box color={colors.BLUE_GREEN} textAlign="center" mb={2}>
-          <Typography400
+          <Typography
             variant="h6"
             component="h2"
             gutterBottom
             color="textSecondary"
+            sx={{ fontWeight: 400 }}
           >
             {card.role}
-          </Typography400>
+          </Typography>
         </Box>
         <Box display="flex" justifyContent="center">
           <IconButtonSmall
@@ -82,24 +83,15 @@ export const ProfileCard: React.FC<Props> = ({ card }) => {
             <LinkedInIcon />
           </IconButtonSmall>
         </Box>
-      </CardContentThick>
+      </CardContent>
     </Card>
   );
 };
-
-const CardContentThick = styled(CardContent)`
-  padding-left: ${({ theme }) => theme.spacing(3)}px;
-  padding-right: ${({ theme }) => theme.spacing(3)}px;
-`;
 
 const AvatarImage = styled(Avatar)`
   width: ${avatarWidth}px;
   height: ${avatarWidth}px;
 `;
-
-const Typography400 = styled(Typography)`
-  font-weight: 400;
-` as typeof Typography;
 
 const IconButtonSmall = styled(IconButton)`
   width: 40px;
