@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import styled from '@emotion/styled';
-import { ProfileCard } from '../src/components/ProfileCard';
+import { Profile } from '../src/components/Profile';
 import { client } from '../lib/apolloClient';
 import { getCards } from '../src/graphql/queries/card';
 import {
@@ -41,7 +41,7 @@ const Index: NextPage<Props> = ({ card, preview }) => {
           alignItems="center"
           justifyContent="center"
         >
-          {card && <ProfileCard card={card} />}
+          {card && <Profile card={card} />}
         </Box>
       </Container>
       {preview && <AlertPreview />}

@@ -19,6 +19,7 @@ import { CardFragment } from '../graphql/queries/card.generated';
 
 type Props = {
   card: CardFragment;
+  onClickExpand?: () => void;
 };
 
 const avatarWidth = 112;
@@ -27,7 +28,7 @@ const myLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-export const ProfileCard: React.FC<Props> = ({ card }) => {
+export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
   return (
     <Card elevation={0}>
       <CardContent sx={{ px: 3 }}>
@@ -43,7 +44,9 @@ export const ProfileCard: React.FC<Props> = ({ card }) => {
           />
         </Box>
         <Box textAlign="center">
-          <Typography variant="h4">{card.name}</Typography>
+          <Typography component="h1" variant="h4">
+            {card.name}
+          </Typography>
         </Box>
         <Box my={2}>
           <Divider />
@@ -60,13 +63,7 @@ export const ProfileCard: React.FC<Props> = ({ card }) => {
           </Typography>
         </Box>
         <Box display="flex" justifyContent="center">
-          <IconButtonSmall
-            component="a"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://drive.google.com/open?id=1XIyHRUGSbtSWwNm405jo3uuj8x3kecgt"
-            title="Curriculum vitae"
-          >
+          <IconButtonSmall onClick={onClickExpand} title="Curriculum vitae">
             <DescriptionIcon htmlColor="#ffb74d" />
           </IconButtonSmall>
           <IconButtonSmall
