@@ -49,7 +49,7 @@ const MyApp: React.FC<AppProps> = (props) => {
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700&display=swap"
         />
         <meta name="theme-color" content={muiTheme.palette.primary.main} />
         <meta

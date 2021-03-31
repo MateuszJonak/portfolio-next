@@ -6,9 +6,9 @@ import { ProfileCV } from './ProfileCV';
 type Props = { card: CardFragment };
 
 export const Profile: React.FC<Props> = ({ card }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   if (expanded) {
-    return <ProfileCV close={() => setExpanded(false)} />;
+    return <ProfileCV card={card} close={() => setExpanded(false)} />;
   }
   return <ProfileCard card={card} onClickExpand={() => setExpanded(true)} />;
 };
