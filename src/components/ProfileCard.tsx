@@ -1,7 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
@@ -23,6 +23,10 @@ type Props = {
 
 const avatarWidth = 112;
 
+const myLoader = ({ src, width, quality }) => {
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
+
 export const ProfileCard: React.FC<Props> = ({ card }) => {
   return (
     <Card elevation={0}>
@@ -30,10 +34,12 @@ export const ProfileCard: React.FC<Props> = ({ card }) => {
         <Box display="flex" justifyContent="center" mb={2}>
           <AvatarImage
             alt={card.name}
-            src={card.avatar.url + `?w=${avatarWidth * 2}`}
-            srcSet={`${card.avatar.url}?w=${avatarWidth},
-              ${card.avatar.url}?w=${avatarWidth * 1.5} 1.5x,
-              ${card.avatar.url}?w=${avatarWidth * 2} 2x`}
+            loader={myLoader}
+            src={card.avatar.url}
+            layout="intrinsic"
+            width={avatarWidth}
+            height={avatarWidth}
+            priority
           />
         </Box>
         <Box textAlign="center">
@@ -88,9 +94,8 @@ export const ProfileCard: React.FC<Props> = ({ card }) => {
   );
 };
 
-const AvatarImage = styled(Avatar)`
-  width: ${avatarWidth}px;
-  height: ${avatarWidth}px;
+const AvatarImage = styled(Image)`
+  border-radius: ${avatarWidth / 2}px;
 `;
 
 const IconButtonSmall = styled(IconButton)`

@@ -31,7 +31,7 @@ const Index: NextPage<Props> = ({ card, preview }) => {
           src="/bg.jpeg"
           layout="fill"
           objectFit="cover"
-          quality={100}
+          quality={80}
         />
       </BackgroundWrap>
       <Container sx={{ height: '100%' }}>
