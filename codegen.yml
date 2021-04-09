@@ -1,8 +1,8 @@
 schema:
-  - https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}:
+  - https://graphql.contentful.com/content/v1/spaces/${NEXT_PUBLIC_CONTENTFUL_SPACE_ID}:
       headers:
-        Authorization: Bearer ${CONTENTFUL_ACCESS_TOKEN}
-documents: 'src/graphql/**/*.ts'
+        Authorization: Bearer ${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}
+documents: 'src/graphql/queries/**/*.ts'
 hooks:
   afterAllFileWrite:
     - eslint --fix src/graphql/**/*.generated.tsx
@@ -17,7 +17,6 @@ generates:
       baseTypesPath: types.generated.tsx
     plugins:
       - typescript-operations
+      - typescript-react-apollo
     config:
-      withHOC: false
       withHooks: true
-      withComponent: false

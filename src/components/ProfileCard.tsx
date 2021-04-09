@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import Image, { ImageLoader } from 'next/image';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -15,34 +15,41 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import { ExtendButtonBase } from '@material-ui/core/ButtonBase';
 import styled from '@emotion/styled';
 import { colors } from '../theme';
-import { CardFragment } from '../graphql/queries/card.generated';
+import { useProfileCard } from '../graphql/hooks/useProfileCard';
 
 type Props = {
-  card: CardFragment;
   onClickExpand?: () => void;
 };
 
 const avatarWidth = 112;
 
-const myLoader = ({ src, width, quality }) => {
+const myLoader: ImageLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
+export const ProfileCard: React.FC<Props> = ({ onClickExpand }) => {
+  const card = useProfileCard();
+
+  if (!card) {
+    return null;
+  }
+
   return (
     <Card elevation={0}>
       <CardContent sx={{ px: 3 }}>
-        <Box display="flex" justifyContent="center" mb={2}>
-          <AvatarImage
-            alt={card.name}
-            loader={myLoader}
-            src={card.avatar.url}
-            layout="intrinsic"
-            width={avatarWidth}
-            height={avatarWidth}
-            priority
-          />
-        </Box>
+        {card.avatar?.url && (
+          <Box display="flex" justifyContent="center" mb={2}>
+            <AvatarImage
+              alt={card.name || 'Unknown name'}
+              loader={myLoader}
+              src={card.avatar.url}
+              layout="intrinsic"
+              width={avatarWidth}
+              height={avatarWidth}
+              priority
+            />
+          </Box>
+        )}
         <Box textAlign="center">
           <Typography component="h1" variant="h4">
             {card.name}

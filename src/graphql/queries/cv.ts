@@ -14,3 +14,12 @@ export const cv = gql`
   }
   ${asset}
 `;
+
+export const getCV = gql`
+  query GetCV($id: String!, $preview: Boolean) {
+    cv(id: $id, preview: $preview) {
+      ...CV
+    }
+  }
+  ${cv}
+`;
