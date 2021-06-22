@@ -8,6 +8,7 @@ import deepMerge from 'deepmerge';
 import * as R from 'ramda';
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { isBrowser } from '../src/misc/util';
 
 const contentfulSpaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
 const contentfulAccessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
@@ -55,8 +56,7 @@ export function initializeApollo({
     _apolloClient.cache.restore(data);
   }
 
-  const isServerSideRendering = typeof window === 'undefined';
-  if (isServerSideRendering) return _apolloClient;
+  if (!isBrowser) return _apolloClient;
   if (!apolloClient) apolloClient = _apolloClient;
 
   return _apolloClient;

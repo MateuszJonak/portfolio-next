@@ -1,53 +1,67 @@
-import React, { useEffect } from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import CloseIcon from '@material-ui/icons/Close';
-import styled from '@emotion/styled';
-import { useGetCvLazyQuery } from '../graphql/queries/cv.generated';
-import { useProfileCard } from '../graphql/hooks/useProfileCard';
+import { CvFragment } from '../graphql/queries/cv.generated';
+import Image from 'next/image';
+import { Maybe } from '../graphql/types.generated';
 
 type Props = {
-  close?: () => void;
+  cv?: Maybe<CvFragment>;
 };
 
-export const ProfileCV: React.FC<Props> = ({ close = () => {} }) => {
-  const card = useProfileCard();
-  const [requestCV, { data }] = useGetCvLazyQuery();
-  useEffect(() => {
-    const id = card?.cv?.sys?.id;
-    if (id) {
-      requestCV({ variables: { id } });
-    }
-  }, [card, requestCV]);
-
-  if (!data?.cv) {
+export const ProfileCV: React.FC<Props> = ({ cv }) => {
+  if (!cv) {
     return null;
   }
 
   return (
-    <Card sx={{ position: 'relative' }}>
-      <CardContent sx={{ p: 5 }}>
-        <Box>
+    <>
+      <Grid container spacing={2} sx={{ py: 1 }}>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          sx={{ display: 'flex', justifyContent: 'center' }}
+        >
+          <Box sx={{ width: 139, height: 176, position: 'relative' }}>
+            {cv.photo?.url && (
+              <Image
+                alt={cv.name || 'Unknown name'}
+                loader={({ src, width, quality }) =>
+                  `${src}?w=${width}&q=${quality || 75}`
+                }
+                src={cv.photo?.url}
+                layout="fill"
+                objectFit="cover"
+                priority
+              />
+            )}
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={8}>
           <Typography component="h2" variant="h2" sx={{ fontWeight: 100 }}>
-            {data.cv.name}
+            {cv.name}
           </Typography>
           <Typography component="h4" variant="h5" sx={{ fontWeight: 500 }}>
-            {data.cv.role}
+            {cv.role}
           </Typography>
-        </Box>
-      </CardContent>
-      <CloseButton aria-label="close" size="small" onClick={close}>
-        <CloseIcon />
-      </CloseButton>
-    </Card>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} sx={{ py: 1 }}>
+        <Grid item xs={12} sm={4}>
+          <Typography>ABOUT ME</Typography>
+          <Typography>Date of Birth: {cv.dateOfBirth}</Typography>
+          <Typography>Age: {cv.age}</Typography>
+          <Typography>Gender: {cv.gender}</Typography>
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <Typography>PROFESSIONAL EXPIRIENCE</Typography>
+          <Typography>SENIOR SOFTWARE ENGINEER</Typography>
+        </Grid>
+      </Grid>
+    </>
   );
 };
-
-const CloseButton = styled(IconButton)`
-  position: absolute;
-  right: 8px;
-  top: 8px;
-`;
