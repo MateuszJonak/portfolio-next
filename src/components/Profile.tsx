@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,9 +12,32 @@ import { useProfileCard } from '../graphql/hooks/useProfileCard';
 import { useGetCvLazyQuery } from '../graphql/queries/cv.generated';
 import useMeasure, { UseMeasureRect } from '../hooks/useMeasure';
 
-const useSpringBackground = (rect: UseMeasureRect) => {
-  const [currentRect, setCurrentRect] = useState(rect);
+const useBoxAnimation = (
+  expanded: boolean,
+  mainRect: UseMeasureRect,
+  detailsRect: UseMeasureRect,
+) => {
   const [initialized, setInitialized] = useState(false);
+  const springMainRef = useSpringRef();
+  const springMain = useSpring({
+    opacity: expanded ? 0 : 1,
+    ref: springMainRef,
+    from: {
+      opacity: 0,
+    },
+  });
+
+  const springDetailsRef = useSpringRef();
+  const springDetails = useSpring({
+    opacity: expanded ? 1 : 0,
+    ref: springDetailsRef,
+  });
+
+  const currentRect = useMemo(() => (expanded ? detailsRect : mainRect), [
+    expanded,
+    detailsRect,
+    mainRect,
+  ]);
   const springBackgroundRef = useSpringRef();
   const springBackground = useSpring({
     width: currentRect.width,
@@ -25,17 +48,27 @@ const useSpringBackground = (rect: UseMeasureRect) => {
   });
 
   useEffect(() => {
-    setCurrentRect(rect);
-  }, [rect]);
-
-  useEffect(() => {
     const { height, width } = currentRect;
     if (height !== 0 && width !== 0 && !initialized) {
       setInitialized(true);
     }
   }, [currentRect, initialized]);
 
-  return { springBackground, springBackgroundRef };
+  const timeSteps = useMemo(() => {
+    if (!initialized) {
+      return [0, 0.2, 0.3];
+    }
+    return [0, expanded ? 0.2 : 0.3, expanded ? 0.4 : 0.6];
+  }, [expanded, initialized]);
+
+  useChain(
+    expanded
+      ? [springMainRef, springBackgroundRef, springDetailsRef]
+      : [springDetailsRef, springBackgroundRef, springMainRef],
+    timeSteps,
+  );
+
+  return { springBackground, springMain, springDetails };
 };
 
 export const Profile: React.FC = () => {
@@ -52,30 +85,10 @@ export const Profile: React.FC = () => {
     }
   }, [card, requestCV]);
 
-  const springCardRef = useSpringRef();
-  const springCard = useSpring({
-    opacity: expanded ? 0 : 1,
-    ref: springCardRef,
-    from: {
-      opacity: 0,
-    },
-  });
-
-  const springCVRef = useSpringRef();
-  const springCV = useSpring({
-    opacity: expanded ? 1 : 0,
-    ref: springCVRef,
-  });
-
-  const { springBackground, springBackgroundRef } = useSpringBackground(
-    expanded ? cvRect : cardRect,
-  );
-
-  useChain(
-    expanded
-      ? [springCardRef, springBackgroundRef, springCVRef]
-      : [springCVRef, springBackgroundRef, springCardRef],
-    [0, expanded ? 0.2 : 0.3, expanded ? 0.4 : 0.6],
+  const { springBackground, springDetails, springMain } = useBoxAnimation(
+    expanded,
+    cardRect,
+    cvRect,
   );
 
   return (
@@ -85,7 +98,7 @@ export const Profile: React.FC = () => {
         elevation={0}
       ></AnimatedBackground>
 
-      <AnimatedWrapper style={springCV} ref={cvRef}>
+      <AnimatedWrapper style={springDetails} ref={cvRef}>
         <CardContent sx={{ p: 3 }}>
           <ProfileCV cv={data?.cv} />
         </CardContent>
@@ -100,7 +113,7 @@ export const Profile: React.FC = () => {
         )}
       </AnimatedWrapper>
 
-      <AnimatedWrapper style={springCard} ref={cardRef}>
+      <AnimatedWrapper style={springMain} ref={cardRef}>
         <CardContent sx={{ p: 3 }}>
           <ProfileCard card={card} onClickExpand={() => setExpanded(true)} />
         </CardContent>

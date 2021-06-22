@@ -2,8 +2,9 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { CvFragment } from '../graphql/queries/cv.generated';
 import Image from 'next/image';
+import dayjs from 'dayjs';
+import { CvFragment } from '../graphql/queries/cv.generated';
 import { Maybe } from '../graphql/types.generated';
 
 type Props = {
@@ -51,16 +52,15 @@ export const ProfileCV: React.FC<Props> = ({ cv }) => {
       </Grid>
 
       <Grid container spacing={2} sx={{ py: 1 }}>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={4} zeroMinWidth>
           <Typography>ABOUT ME</Typography>
-          <Typography>Date of Birth: {cv.dateOfBirth}</Typography>
+          <Typography noWrap>
+            Date of Birth: {dayjs(cv.dateOfBirth).format('YYYY MMM DD')}
+          </Typography>
           <Typography>Age: {cv.age}</Typography>
           <Typography>Gender: {cv.gender}</Typography>
         </Grid>
-        <Grid item xs={12} sm={8}>
-          <Typography>PROFESSIONAL EXPIRIENCE</Typography>
-          <Typography>SENIOR SOFTWARE ENGINEER</Typography>
-        </Grid>
+        <Grid item xs={12} sm={8}></Grid>
       </Grid>
     </>
   );
