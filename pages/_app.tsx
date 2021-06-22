@@ -7,20 +7,23 @@ import {
 } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Global, css, ThemeProvider, CacheProvider } from '@emotion/react';
-import { muiTheme } from '../src/theme/muiTheme';
 import createCache from '@emotion/cache';
+import { ApolloProvider } from '@apollo/client';
+import { useApollo } from '../lib/apolloClient';
+import { muiTheme } from '../src/theme/muiTheme';
 
 const key = 'cv';
 export const cache = createCache({ key });
 
 const MyApp: React.FC<AppProps> = (props) => {
   const { Component, pageProps } = props;
+  const apolloClient = useApollo(pageProps);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
+      jssStyles.parentElement?.removeChild(jssStyles);
     }
   }, []);
 
@@ -49,7 +52,7 @@ const MyApp: React.FC<AppProps> = (props) => {
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700&display=swap"
         />
         <meta name="theme-color" content={muiTheme.palette.primary.main} />
         <meta
@@ -57,15 +60,17 @@ const MyApp: React.FC<AppProps> = (props) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <MuiThemeProvider theme={muiTheme}>
-        <ThemeProvider theme={muiTheme}>
-          <StylesProvider injectFirst>
-            <CssBaseline />
-            <Global styles={globalStyles} />
-            <Component {...pageProps} />
-          </StylesProvider>
-        </ThemeProvider>
-      </MuiThemeProvider>
+      <ApolloProvider client={apolloClient}>
+        <MuiThemeProvider theme={muiTheme}>
+          <ThemeProvider theme={muiTheme}>
+            <StylesProvider injectFirst>
+              <CssBaseline />
+              <Global styles={globalStyles} />
+              <Component {...pageProps} />
+            </StylesProvider>
+          </ThemeProvider>
+        </MuiThemeProvider>
+      </ApolloProvider>
     </CacheProvider>
   );
 };

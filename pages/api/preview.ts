@@ -1,27 +1,27 @@
-import { client } from '../../lib/apolloClient';
+import { NextApiHandler } from 'next';
+import { initializeApollo } from '../../lib/apolloClient';
 import { getCards } from '../../src/graphql/queries/card';
 import {
   GetCardsQuery,
   GetCardsQueryVariables,
 } from '../../src/graphql/queries/card.generated';
 
-const { CONTENTFUL_PREVIEW_ACCESS_TOKEN } = process.env;
-export default async function preview(req, res) {
+const preview: NextApiHandler = async (req, res) => {
   const { secret, id } = req.query;
 
   if (secret !== process.env.CONTENTFUL_PREVIEW_SECRET || !id) {
     return res.status(401).json({ message: 'Invalid token' });
   }
+  const apolloClient = initializeApollo({ preview: true });
 
-  const { data } = await client.query<GetCardsQuery, GetCardsQueryVariables>({
+  const { data } = await apolloClient.query<
+    GetCardsQuery,
+    GetCardsQueryVariables
+  >({
     query: getCards,
     variables: {
+      limit: 1,
       preview: true,
-    },
-    context: {
-      headers: {
-        Authorization: `Bearer ${CONTENTFUL_PREVIEW_ACCESS_TOKEN}`,
-      },
     },
   });
 
@@ -45,4 +45,6 @@ export default async function preview(req, res) {
     </head>`,
   );
   res.end();
-}
+};
+
+export default preview;

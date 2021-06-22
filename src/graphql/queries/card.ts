@@ -8,6 +8,11 @@ export const card = gql`
       ...Asset
     }
     role
+    cv {
+      sys {
+        id
+      }
+    }
   }
   ${asset}
 `;

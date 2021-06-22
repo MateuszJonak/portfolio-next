@@ -2,22 +2,23 @@ import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import styled from '@emotion/styled';
-import { ProfileCard } from '../src/components/ProfileCard';
-import { client } from '../lib/apolloClient';
+import { Profile } from '../src/components/Profile';
+import { initializeApollo, addApolloState } from '../lib/apolloClient';
 import { getCards } from '../src/graphql/queries/card';
 import {
   GetCardsQuery,
   GetCardsQueryVariables,
-  CardFragment,
 } from '../src/graphql/queries/card.generated';
 import { AlertPreview } from '../src/components/AlertPreview';
+import { useProfileCard } from '../src/graphql/hooks/useProfileCard';
 
-type Props = { card: CardFragment | null; preview: boolean };
-
-const Index: NextPage<Props> = ({ card, preview }) => {
+const Index: NextPage = () => {
+  const card = useProfileCard();
+  const { isPreview } = useRouter();
   const pageTitle = card?.name && card?.role && `${card.name} - ${card.role}`;
   return (
     <>
@@ -41,48 +42,28 @@ const Index: NextPage<Props> = ({ card, preview }) => {
           alignItems="center"
           justifyContent="center"
         >
-          {card && <ProfileCard card={card} />}
+          <Profile />
         </Box>
       </Container>
-      {preview && <AlertPreview />}
+      {isPreview && <AlertPreview />}
     </>
   );
 };
-const { CONTENTFUL_PREVIEW_ACCESS_TOKEN } = process.env;
 
-const getContext = (preview?: boolean) => {
-  if (!preview) {
-    return undefined;
-  }
-  return {
-    context: {
-      headers: {
-        Authorization: `Bearer ${CONTENTFUL_PREVIEW_ACCESS_TOKEN}`,
-      },
-    },
-  };
-};
-
-export const getStaticProps: GetStaticProps<Props> = async ({
-  preview = false,
-}) => {
-  const { data } = await client.query<GetCardsQuery, GetCardsQueryVariables>({
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+  const apolloClient = initializeApollo({ preview });
+  await apolloClient.query<GetCardsQuery, GetCardsQueryVariables>({
     query: getCards,
     variables: {
       limit: 1,
       preview,
     },
-    ...getContext(preview),
   });
-  const card = data.cardCollection?.items[0];
 
-  return {
-    props: {
-      card: card || null,
-      preview,
-    },
+  return addApolloState(apolloClient, {
+    props: {},
     revalidate: 1,
-  };
+  });
 };
 
 const BackgroundWrap = styled.div`
