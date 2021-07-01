@@ -15,6 +15,7 @@ import {
 } from '../src/graphql/queries/card.generated';
 import { AlertPreview } from '../src/components/AlertPreview';
 import { useProfileCard } from '../src/graphql/hooks/useProfileCard';
+import bgPic from '../public/bg.jpeg';
 
 const Index: NextPage = () => {
   const card = useProfileCard();
@@ -29,10 +30,11 @@ const Index: NextPage = () => {
       <BackgroundWrap>
         <Image
           alt="black hole"
-          src="/bg.jpeg"
+          src={bgPic}
           layout="fill"
           objectFit="cover"
           quality={80}
+          placeholder="blur"
         />
       </BackgroundWrap>
       <Container sx={{ height: '100%' }}>
