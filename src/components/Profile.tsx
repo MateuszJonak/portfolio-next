@@ -33,11 +33,10 @@ const useBoxAnimation = (
     ref: springDetailsRef,
   });
 
-  const currentRect = useMemo(() => (expanded ? detailsRect : mainRect), [
-    expanded,
-    detailsRect,
-    mainRect,
-  ]);
+  const currentRect = useMemo(
+    () => (expanded ? detailsRect : mainRect),
+    [expanded, detailsRect, mainRect],
+  );
   const springBackgroundRef = useSpringRef();
   const springBackground = useSpring({
     width: currentRect.width,
