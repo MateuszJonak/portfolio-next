@@ -29,7 +29,6 @@ export default class MyDocument extends Document {
           />
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700&display=swap"
