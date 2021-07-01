@@ -41,6 +41,7 @@ const Index: NextPage = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          position="relative"
         >
           <Profile />
         </Box>
