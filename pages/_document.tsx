@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import createEmotionCache from '../src/misc/createEmotionCache';
+import { muiTheme } from '../src/theme';
 
 export default class MyDocument extends Document {
   render() {
@@ -26,7 +27,11 @@ export default class MyDocument extends Document {
             href="/apple-touch-icon.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+          <link
+            rel="mask-icon"
+            href="/safari-pinned-tab.svg"
+            color={muiTheme.palette.background.default}
+          />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700&display=swap"
