@@ -37,11 +37,3 @@ yarn-error.log*
 
 # graphql generated
 src/graphql/**/*.generated.*
-
-.yarn/*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions

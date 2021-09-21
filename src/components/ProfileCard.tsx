@@ -1,18 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import IconButton, {
   IconButtonTypeMap,
   IconButtonProps,
-} from '@material-ui/core/IconButton';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import DescriptionIcon from '@material-ui/icons/Description';
-import { ExtendButtonBase } from '@material-ui/core/ButtonBase';
+} from '@mui/material/IconButton';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import DescriptionIcon from '@mui/icons-material/Description';
+import { ExtendButtonBase } from '@mui/material/ButtonBase';
 import styled from '@emotion/styled';
-import { colors } from '../theme';
 import { CardFragment } from '../graphql/queries/card.generated';
 import { Maybe } from '../graphql/types.generated';
 
@@ -53,7 +52,7 @@ export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
       <Box my={2}>
         <Divider />
       </Box>
-      <Box color={colors.BLUE_GREEN} textAlign="center" mb={2}>
+      <Box textAlign="center" mb={2}>
         <Typography
           variant="h6"
           component="h2"

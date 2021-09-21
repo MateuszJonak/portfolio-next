@@ -1,8 +1,8 @@
 import React from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/core/Alert';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 export const AlertPreview: React.FC = () => {
   return (

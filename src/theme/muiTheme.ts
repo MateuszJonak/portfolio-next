@@ -1,29 +1,11 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { blue } from '@material-ui/core/colors';
+import { createTheme } from '@mui/material/styles';
 
-export const muiTheme = createMuiTheme({
+const GRAY = '#424242';
+
+export const muiTheme = createTheme({
   palette: {
     mode: 'dark',
-    primary: {
-      light: blue[100],
-      main: blue[200],
-      dark: blue[300],
-    },
-    secondary: {
-      light: '#f6a5c0',
-      main: '#f48fb1',
-      dark: '#aa647b',
-    },
-    warning: {
-      light: '#ffb74d',
-      main: '#ff9800',
-      dark: '#f57c00',
-    },
-    info: {
-      light: '#64b5f6',
-      main: '#2196f3',
-      dark: '#1976d2',
-    },
+    background: { default: GRAY, paper: GRAY },
   },
   typography: {
     h1: {

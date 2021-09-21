@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import styled from '@emotion/styled';
 import { useSpring, animated, useChain, useSpringRef } from 'react-spring';
 import { ProfileCard } from './ProfileCard';
