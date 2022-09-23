@@ -11,6 +11,37 @@ export const cv = gql`
     dateOfBirth
     age
     gender
+    expertise
+    knowledge
+    basic
+    languages
+    professionalExperienceCollection {
+      items {
+        title
+        company
+        startDate
+        endDate
+        description
+      }
+    }
+    skills
+    educationCollection {
+      items {
+        startDate
+        endDate
+        school
+        title
+        studyField
+      }
+    }
+    interestsCollection {
+      items {
+        name
+        icon {
+          ...Asset
+        }
+      }
+    }
   }
   ${asset}
 `;
