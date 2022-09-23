@@ -30,7 +30,7 @@ export const ProfileCV: React.FC<Props> = ({ cv }) => {
               <Image
                 alt={cv.name || 'Unknown name'}
                 loader={({ src, width, quality }) =>
-                  `${src}?w=${width}&q=${quality || 75}`
+                  `${src}?w=${width}&q=${quality || 75}&fm=webp`
                 }
                 src={cv.photo?.url}
                 fill

@@ -34,7 +34,7 @@ export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
           <AvatarImage
             alt={card.name || 'Unknown name'}
             loader={({ src, width, quality }) =>
-              `${src}?w=${width}&q=${quality || 75}`
+              `${src}?w=${width}&q=${quality || 75}&fm=webp`
             }
             src={card.avatar.url}
             width={avatarWidth}
