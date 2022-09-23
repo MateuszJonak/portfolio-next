@@ -6,30 +6,17 @@ import {
   StyledEngineProvider,
 } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import {
-  Global,
-  css,
-  ThemeProvider,
-  CacheProvider,
-  EmotionCache,
-} from '@emotion/react';
+import { Global, css, ThemeProvider } from '@emotion/react';
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../lib/apolloClient';
 import { muiTheme } from '../src/theme/muiTheme';
-import createEmotionCache from '../src/misc/createEmotionCache';
 
-export const clientSideEmotionCache = createEmotionCache();
-
-interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache;
-}
-
-const MyApp: React.FC<MyAppProps> = (props) => {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+const MyApp: React.FC<AppProps> = (props) => {
+  const { Component, pageProps } = props;
   const apolloClient = useApollo(pageProps);
 
   return (
-    <CacheProvider value={emotionCache}>
+    <>
       <Head>
         <meta
           name="theme-color"
@@ -51,7 +38,7 @@ const MyApp: React.FC<MyAppProps> = (props) => {
           </ThemeProvider>
         </MuiThemeProvider>
       </ApolloProvider>
-    </CacheProvider>
+    </>
   );
 };
 

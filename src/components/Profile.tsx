@@ -5,12 +5,13 @@ import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import styled from '@emotion/styled';
-import { useSpring, animated, useChain, useSpringRef } from 'react-spring';
+import { useSpring, animated, useChain, useSpringRef } from '@react-spring/web';
 import { ProfileCard } from './ProfileCard';
 import { ProfileCV } from './ProfileCV';
 import { useProfileCard } from '../graphql/hooks/useProfileCard';
-import { useGetCvLazyQuery } from '../graphql/queries/cv.generated';
+import { GetCvDocument } from '../graphql/queries/cv.generated';
 import useMeasure, { UseMeasureRect } from '../hooks/useMeasure';
+import { useLazyQuery } from '@apollo/client';
 
 const useBoxAnimation = (
   expanded: boolean,
@@ -76,7 +77,7 @@ export const Profile: React.FC = () => {
   const [cvRef, cvRect] = useMeasure<HTMLDivElement>();
 
   const card = useProfileCard();
-  const [requestCV, { data }] = useGetCvLazyQuery();
+  const [requestCV, { data }] = useLazyQuery(GetCvDocument);
   useEffect(() => {
     const id = card?.cv?.sys?.id;
     if (id) {

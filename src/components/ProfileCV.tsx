@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import dayjs from 'dayjs';
 import { CvFragment } from '../graphql/queries/cv.generated';
 import { Maybe } from '../graphql/types.generated';
@@ -30,11 +30,12 @@ export const ProfileCV: React.FC<Props> = ({ cv }) => {
               <Image
                 alt={cv.name || 'Unknown name'}
                 loader={({ src, width, quality }) =>
-                  `${src}?w=${width}&q=${quality || 75}`
+                  `${src}?w=${width}&q=${quality || 75}&fm=webp`
                 }
                 src={cv.photo?.url}
-                layout="fill"
-                objectFit="cover"
+                fill
+                sizes="(max-width: 428px) 50vw, 33vw"
+                style={{ objectFit: 'cover' }}
                 priority
               />
             )}

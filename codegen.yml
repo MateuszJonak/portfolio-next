@@ -3,22 +3,17 @@ schema:
       headers:
         Authorization: Bearer ${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}
 documents: './src/graphql/queries/**/!(*.generated).ts'
-hooks:
-  afterAllFileWrite:
-    - eslint --fix src/graphql/**/*.generated.tsx
 generates:
-  src/graphql/types.generated.tsx:
+  src/graphql/types.generated.ts:
     plugins:
       - 'typescript'
   src/graphql/:
     preset: near-operation-file
     presetConfig:
-      extension: .generated.tsx
-      baseTypesPath: types.generated.tsx
+      extension: .generated.ts
+      baseTypesPath: types.generated.ts
     plugins:
       - add:
-          content: "// @ts-ignore"
+          content: '// @ts-ignore'
       - typescript-operations
-      - typescript-react-apollo
-    config:
-      withHooks: true
+      - typed-document-node

@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -34,10 +34,9 @@ export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
           <AvatarImage
             alt={card.name || 'Unknown name'}
             loader={({ src, width, quality }) =>
-              `${src}?w=${width}&q=${quality || 75}`
+              `${src}?w=${width}&q=${quality || 75}&fm=webp`
             }
             src={card.avatar.url}
-            layout="intrinsic"
             width={avatarWidth}
             height={avatarWidth}
             priority
