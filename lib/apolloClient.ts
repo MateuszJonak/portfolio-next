@@ -5,7 +5,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client';
 import deepMerge from 'deepmerge';
-import * as R from 'ramda';
+import equals from 'ramda/es/equals';
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { isBrowser } from '../src/misc/util';
@@ -48,7 +48,7 @@ export function initializeApollo({
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
         ...destinationArray.filter((d) =>
-          sourceArray.every((s) => !R.equals(d, s)),
+          sourceArray.every((s) => !equals(d, s)),
         ),
       ],
     });
