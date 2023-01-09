@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import dayjs from 'dayjs';
 import { CvFragment } from '../graphql/queries/cv.generated';
 import { Maybe } from '../graphql/types.generated';
