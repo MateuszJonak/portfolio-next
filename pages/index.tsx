@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
