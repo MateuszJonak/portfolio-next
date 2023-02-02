@@ -31,6 +31,3 @@ yarn-error.log*
 
 # IDE
 .vscode
-
-# graphql generated
-src/graphql/**/*.generated.*

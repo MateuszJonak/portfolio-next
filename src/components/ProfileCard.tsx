@@ -12,31 +12,32 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { ExtendButtonBase } from '@mui/material/ButtonBase';
 import styled from '@emotion/styled';
-import { CardFragment } from '../graphql/queries/card.generated';
-import { Maybe } from '../graphql/types.generated';
+import { useFragment } from '../gql/fragment-masking';
+import { AssetFragmentDoc, CardFragment } from '../gql/graphql';
 
 type Props = {
-  card?: Maybe<CardFragment>;
+  card?: CardFragment | null;
   onClickExpand?: () => void;
 };
 
 const avatarWidth = 112;
 
 export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
+  const avatarAsset = useFragment(AssetFragmentDoc, card?.avatar);
   if (!card) {
     return null;
   }
 
   return (
     <>
-      {card.avatar?.url && (
+      {avatarAsset?.url && (
         <Box display="flex" justifyContent="center" mb={2}>
           <AvatarImage
             alt={card.name || 'Unknown name'}
             loader={({ src, width, quality }) =>
               `${src}?w=${width}&q=${quality || 75}&fm=webp`
             }
-            src={card.avatar.url}
+            src={avatarAsset.url}
             width={avatarWidth}
             height={avatarWidth}
             priority
