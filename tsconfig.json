@@ -19,6 +19,6 @@
     "target": "esnext",
     "incremental": true
   },
-  "exclude": ["node_modules", "src/graphql/**/*.generated.*"],
+  "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

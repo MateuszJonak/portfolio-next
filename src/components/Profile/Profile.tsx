@@ -5,11 +5,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import styled from '@emotion/styled';
 import { m, LazyMotion } from 'framer-motion';
-import { ProfileCV } from './ProfileCV';
-import { useProfileCard } from '../graphql/hooks/useProfileCard';
-import { GetCvDocument } from '../graphql/queries/cv.generated';
+import { ProfileCV } from '../ProfileCV';
+import { GetCvDocument } from '../../gql/graphql';
 import { useLazyQuery } from '@apollo/client';
-import { ProfileCard } from './ProfileCard';
+import { ProfileCard } from '../ProfileCard';
+import { useProfileCardFragment } from '../../hooks/useProfileCardFragment';
 
 const loadFeatures = () =>
   import('./framerFeatures').then((res) => res.default);
@@ -18,7 +18,8 @@ export const Profile: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const card = useProfileCard();
+  const card = useProfileCardFragment();
+
   const [requestCV, { data }] = useLazyQuery(GetCvDocument);
   useEffect(() => {
     const id = card?.cv?.sys?.id;

@@ -1,10 +1,10 @@
 import { NextApiHandler } from 'next';
 import { initializeApollo } from '../../lib/apolloClient';
-import { getCards } from '../../src/graphql/queries/card';
 import {
+  GetCardsDocument,
   GetCardsQuery,
   GetCardsQueryVariables,
-} from '../../src/graphql/queries/card.generated';
+} from '../../src/gql/graphql';
 
 const preview: NextApiHandler = async (req, res) => {
   const { secret, id } = req.query;
@@ -18,7 +18,7 @@ const preview: NextApiHandler = async (req, res) => {
     GetCardsQuery,
     GetCardsQueryVariables
   >({
-    query: getCards,
+    query: GetCardsDocument,
     variables: {
       limit: 1,
       preview: true,

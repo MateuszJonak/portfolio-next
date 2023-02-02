@@ -4,14 +4,16 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Image from 'next/image';
 import dayjs from 'dayjs';
-import { CvFragment } from '../graphql/queries/cv.generated';
-import { Maybe } from '../graphql/types.generated';
+import { FragmentType, useFragment } from '../gql/fragment-masking';
+import { AssetFragmentDoc, CvFragmentDoc } from '../gql/graphql';
 
 type Props = {
-  cv?: Maybe<CvFragment>;
+  cv?: FragmentType<typeof CvFragmentDoc> | null;
 };
 
-export const ProfileCV: React.FC<Props> = ({ cv }) => {
+export const ProfileCV: React.FC<Props> = ({ cv: cvProp }) => {
+  const cv = useFragment(CvFragmentDoc, cvProp);
+  const photoAsset = useFragment(AssetFragmentDoc, cv?.photo);
   if (!cv) {
     return null;
   }
@@ -26,13 +28,13 @@ export const ProfileCV: React.FC<Props> = ({ cv }) => {
           sx={{ display: 'flex', justifyContent: 'center' }}
         >
           <Box sx={{ width: 139, height: 176, position: 'relative' }}>
-            {cv.photo?.url && (
+            {photoAsset?.url && (
               <Image
                 alt={cv.name || 'Unknown name'}
                 loader={({ src, width, quality }) =>
                   `${src}?w=${width}&q=${quality || 75}&fm=webp`
                 }
-                src={cv.photo?.url}
+                src={photoAsset?.url}
                 fill
                 sizes="(max-width: 428px) 50vw, 33vw"
                 style={{ objectFit: 'cover' }}

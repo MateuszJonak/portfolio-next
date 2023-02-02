@@ -8,17 +8,17 @@ import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 import { Profile } from '../src/components/Profile';
 import { initializeApollo, addApolloState } from '../lib/apolloClient';
-import { getCards } from '../src/graphql/queries/card';
 import {
+  GetCardsDocument,
   GetCardsQuery,
   GetCardsQueryVariables,
-} from '../src/graphql/queries/card.generated';
+} from '../src/gql/graphql';
 import { AlertPreview } from '../src/components/AlertPreview';
-import { useProfileCard } from '../src/graphql/hooks/useProfileCard';
 import bgPic from '../public/bg.jpeg';
+import { useProfileCardFragment } from '../src/hooks/useProfileCardFragment';
 
 const Index: NextPage = () => {
-  const card = useProfileCard();
+  const card = useProfileCardFragment();
   const { isPreview } = useRouter();
   const pageTitle = card?.name && card?.role && `${card.name} - ${card.role}`;
   return (
@@ -57,7 +57,7 @@ const Index: NextPage = () => {
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const apolloClient = initializeApollo({ preview });
   await apolloClient.query<GetCardsQuery, GetCardsQueryVariables>({
-    query: getCards,
+    query: GetCardsDocument,
     variables: {
       limit: 1,
       preview,
