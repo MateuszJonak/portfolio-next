@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client';
+import { graphql } from '../../gql';
 import { asset } from './asset';
 
-export const cv = gql`
+export const cv = graphql(`
   fragment CV on Cv {
     name
     role
@@ -13,13 +13,13 @@ export const cv = gql`
     gender
   }
   ${asset}
-`;
+`);
 
-export const getCV = gql`
+export const getCV = graphql(`
   query GetCV($id: String!, $preview: Boolean) {
     cv(id: $id, preview: $preview) {
       ...CV
     }
   }
   ${cv}
-`;
+`);

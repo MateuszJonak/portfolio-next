@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client';
+import { graphql } from '../../gql';
 import { asset } from './asset';
 
-export const card = gql`
+export const card = graphql(`
   fragment Card on Card {
     name
     avatar {
@@ -15,9 +15,9 @@ export const card = gql`
     }
   }
   ${asset}
-`;
+`);
 
-export const getCards = gql`
+export const getCards = graphql(`
   query GetCards($limit: Int, $preview: Boolean) {
     cardCollection(limit: $limit, preview: $preview) {
       items {
@@ -26,4 +26,4 @@ export const getCards = gql`
     }
   }
   ${card}
-`;
+`);

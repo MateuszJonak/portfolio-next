@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { graphql } from '../../gql';
 
-export const asset = gql`
+export const asset = graphql(`
   fragment Asset on Asset {
     title
     description
@@ -11,4 +11,4 @@ export const asset = gql`
     width
     height
   }
-`;
+`);

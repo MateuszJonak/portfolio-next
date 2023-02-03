@@ -11,13 +11,16 @@ const config: CodegenConfig = {
         },
     },
   ],
-  documents: ['src/api/*.ts'],
+  documents: ['api/operations/*.ts'],
   ignoreNoDocuments: true, // for better experience with the watcher
   hooks: { afterOneFileWrite: ['next lint --fix --file'] },
   generates: {
-    './src/gql/': {
+    'gql/': {
       preset: 'client',
       plugins: [],
+      presetConfig: {
+        fragmentMasking: { unmaskFunctionName: 'getFragmentData' },
+      },
     },
   },
 };

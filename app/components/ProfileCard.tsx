@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -7,23 +8,25 @@ import IconButton, {
   IconButtonTypeMap,
   IconButtonProps,
 } from '@mui/material/IconButton';
+import { ExtendButtonBase } from '@mui/material/ButtonBase';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { ExtendButtonBase } from '@mui/material/ButtonBase';
+import Image from 'next/image';
 import styled from '@emotion/styled';
-import { useFragment } from '../gql/fragment-masking';
-import { AssetFragmentDoc, CardFragment } from '../gql/graphql';
+import { AssetFragmentDoc, CardFragmentDoc } from '../../gql/graphql';
+import { FragmentType, getFragmentData } from '../../gql/fragment-masking';
 
 type Props = {
-  card?: CardFragment | null;
   onClickExpand?: () => void;
+  card: FragmentType<typeof CardFragmentDoc> | null;
 };
 
-const avatarWidth = 112;
+export const avatarWidth = 112;
 
-export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
-  const avatarAsset = useFragment(AssetFragmentDoc, card?.avatar);
+export default function ProfileCard({ onClickExpand, card: cardProp }: Props) {
+  const card = getFragmentData(CardFragmentDoc, cardProp);
+  const avatarAsset = getFragmentData(AssetFragmentDoc, card?.avatar);
   if (!card) {
     return null;
   }
@@ -90,13 +93,13 @@ export const ProfileCard: React.FC<Props> = ({ card, onClickExpand }) => {
       </Box>
     </>
   );
-};
+}
 
-const AvatarImage = styled(Image)`
+export const AvatarImage = styled(Image)`
   border-radius: ${avatarWidth / 2}px;
 `;
 
-const IconButtonSmall = styled(IconButton)`
+export const IconButtonSmall = styled(IconButton)`
   width: 40px;
   height: 40px;
   &:not(:last-child) {

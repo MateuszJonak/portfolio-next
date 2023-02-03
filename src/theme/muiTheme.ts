@@ -1,4 +1,7 @@
+'use client';
+
 import { createTheme } from '@mui/material/styles';
+import { GRAY } from './colors';
 import { Roboto } from '@next/font/google';
 
 const roboto = Roboto({
@@ -6,8 +9,6 @@ const roboto = Roboto({
   style: ['normal'],
   subsets: ['latin'],
 });
-
-const GRAY = '#424242';
 
 export const muiTheme = createTheme({
   palette: {

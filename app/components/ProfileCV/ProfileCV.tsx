@@ -1,19 +1,12 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Image from 'next/image';
+import { Box, Grid, Typography } from '../MaterialUI';
 import dayjs from 'dayjs';
-import { FragmentType, useFragment } from '../gql/fragment-masking';
-import { AssetFragmentDoc, CvFragmentDoc } from '../gql/graphql';
+import { getCV } from '../../../api/getCV';
+import { ProfileCVImage } from './ProfileCVImage';
 
-type Props = {
-  cv?: FragmentType<typeof CvFragmentDoc> | null;
-};
+export default async function ProfileCV() {
+  const cv = await getCV();
 
-export const ProfileCV: React.FC<Props> = ({ cv: cvProp }) => {
-  const cv = useFragment(CvFragmentDoc, cvProp);
-  const photoAsset = useFragment(AssetFragmentDoc, cv?.photo);
   if (!cv) {
     return null;
   }
@@ -28,19 +21,7 @@ export const ProfileCV: React.FC<Props> = ({ cv: cvProp }) => {
           sx={{ display: 'flex', justifyContent: 'center' }}
         >
           <Box sx={{ width: 139, height: 176, position: 'relative' }}>
-            {photoAsset?.url && (
-              <Image
-                alt={cv.name || 'Unknown name'}
-                loader={({ src, width, quality }) =>
-                  `${src}?w=${width}&q=${quality || 75}&fm=webp`
-                }
-                src={photoAsset?.url}
-                fill
-                sizes="(max-width: 428px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
-                priority
-              />
-            )}
+            <ProfileCVImage cv={cv} />
           </Box>
         </Grid>
 
@@ -67,4 +48,4 @@ export const ProfileCV: React.FC<Props> = ({ cv: cvProp }) => {
       </Grid>
     </>
   );
-};
+}

@@ -1,10 +1,10 @@
 import { NextApiHandler } from 'next';
-import { initializeApollo } from '../../lib/apolloClient';
+import { initGQLClient } from '../../lib/gqlClient';
 import {
   GetCardsDocument,
   GetCardsQuery,
   GetCardsQueryVariables,
-} from '../../src/gql/graphql';
+} from '../../gql/graphql';
 
 const preview: NextApiHandler = async (req, res) => {
   const { secret, id } = req.query;
@@ -12,18 +12,15 @@ const preview: NextApiHandler = async (req, res) => {
   if (secret !== process.env.CONTENTFUL_PREVIEW_SECRET || !id) {
     return res.status(401).json({ message: 'Invalid token' });
   }
-  const apolloClient = initializeApollo({ preview: true });
+  const gqlClient = initGQLClient({ preview: true });
 
-  const { data } = await apolloClient.query<
-    GetCardsQuery,
-    GetCardsQueryVariables
-  >({
-    query: GetCardsDocument,
-    variables: {
+  const data = await gqlClient.request<GetCardsQuery, GetCardsQueryVariables>(
+    GetCardsDocument,
+    {
       limit: 1,
       preview: true,
     },
-  });
+  );
 
   const card = data.cardCollection?.items[0];
 
