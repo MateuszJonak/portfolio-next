@@ -1,6 +1,7 @@
 import React from 'react';
 import { Providers } from './providers';
 import { GRAY } from '../src/theme/colors';
+import { getCard } from '../api/getCard';
 
 export default async function RootLayout({
   children,
@@ -10,11 +11,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="theme-color" content={GRAY} />
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
         <link
           rel="icon"
           type="image/png"
@@ -40,4 +36,20 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+const getPageTitle = async () => {
+  const card = await getCard();
+  return card?.name && card?.role && `${card.name} - ${card.role}`;
+};
+
+export async function generateMetadata() {
+  const pageTitle = await getPageTitle();
+
+  return {
+    title: pageTitle,
+    description: 'Curriculum vitae',
+    themeColor: GRAY,
+    viewport: 'minimum-scale=1, initial-scale=1, width=device-width',
+  };
 }
