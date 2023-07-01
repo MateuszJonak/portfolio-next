@@ -187,6 +187,7 @@ export type AssetLinkingCollections = {
 export type AssetLinkingCollectionsCardCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<AssetLinkingCollectionsCardCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -195,6 +196,7 @@ export type AssetLinkingCollectionsCardCollectionArgs = {
 export type AssetLinkingCollectionsCvCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<AssetLinkingCollectionsCvCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -211,9 +213,59 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
 export type AssetLinkingCollectionsInterestCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<AssetLinkingCollectionsInterestCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
+export enum AssetLinkingCollectionsCardCollectionOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RoleAsc = 'role_ASC',
+  RoleDesc = 'role_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export enum AssetLinkingCollectionsCvCollectionOrder {
+  AgeAsc = 'age_ASC',
+  AgeDesc = 'age_DESC',
+  DateOfBirthAsc = 'dateOfBirth_ASC',
+  DateOfBirthDesc = 'dateOfBirth_DESC',
+  GenderAsc = 'gender_ASC',
+  GenderDesc = 'gender_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RoleAsc = 'role_ASC',
+  RoleDesc = 'role_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export enum AssetLinkingCollectionsInterestCollectionOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum AssetOrder {
   ContentTypeAsc = 'contentType_ASC',
@@ -412,8 +464,10 @@ export type CvDateOfBirthArgs = {
 export type CvEducationCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<CvEducationCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<EducationFilter>;
 };
 
 
@@ -433,8 +487,10 @@ export type CvGenderArgs = {
 export type CvInterestsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<CvInterestsCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<InterestFilter>;
 };
 
 
@@ -473,8 +529,10 @@ export type CvPhotoArgs = {
 export type CvProfessionalExperienceCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<CvProfessionalExperienceCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ExperienceFilter>;
 };
 
 
@@ -505,6 +563,27 @@ export type CvEducationCollection = {
   total: Scalars['Int'];
 };
 
+export enum CvEducationCollectionOrder {
+  EndDateAsc = 'endDate_ASC',
+  EndDateDesc = 'endDate_DESC',
+  SchoolAsc = 'school_ASC',
+  SchoolDesc = 'school_DESC',
+  StartDateAsc = 'startDate_ASC',
+  StartDateDesc = 'startDate_DESC',
+  StudyFieldAsc = 'studyField_ASC',
+  StudyFieldDesc = 'studyField_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
 export type CvFilter = {
   AND?: InputMaybe<Array<InputMaybe<CvFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CvFilter>>>;
@@ -531,6 +610,7 @@ export type CvFilter = {
   dateOfBirth_lte?: InputMaybe<Scalars['DateTime']>;
   dateOfBirth_not?: InputMaybe<Scalars['DateTime']>;
   dateOfBirth_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  education?: InputMaybe<CfEducationNestedFilter>;
   educationCollection_exists?: InputMaybe<Scalars['Boolean']>;
   expertise_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   expertise_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -543,6 +623,7 @@ export type CvFilter = {
   gender_not?: InputMaybe<Scalars['String']>;
   gender_not_contains?: InputMaybe<Scalars['String']>;
   gender_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  interests?: InputMaybe<CfInterestNestedFilter>;
   interestsCollection_exists?: InputMaybe<Scalars['Boolean']>;
   knowledge_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   knowledge_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -560,6 +641,7 @@ export type CvFilter = {
   name_not_contains?: InputMaybe<Scalars['String']>;
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   photo_exists?: InputMaybe<Scalars['Boolean']>;
+  professionalExperience?: InputMaybe<CfExperienceNestedFilter>;
   professionalExperienceCollection_exists?: InputMaybe<Scalars['Boolean']>;
   role?: InputMaybe<Scalars['String']>;
   role_contains?: InputMaybe<Scalars['String']>;
@@ -582,6 +664,19 @@ export type CvInterestsCollection = {
   skip: Scalars['Int'];
   total: Scalars['Int'];
 };
+
+export enum CvInterestsCollectionOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export type CvLinkingCollections = {
   __typename?: 'CvLinkingCollections';
@@ -624,6 +719,25 @@ export type CvProfessionalExperienceCollection = {
   skip: Scalars['Int'];
   total: Scalars['Int'];
 };
+
+export enum CvProfessionalExperienceCollectionOrder {
+  CompanyAsc = 'company_ASC',
+  CompanyDesc = 'company_DESC',
+  EndDateAsc = 'endDate_ASC',
+  EndDateDesc = 'endDate_DESC',
+  StartDateAsc = 'startDate_ASC',
+  StartDateDesc = 'startDate_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
 
 /** [See type definition](https://app.contentful.com/spaces/ymaqj8txsy4t/content_types/education) */
 export type Education = Entry & {
@@ -738,6 +852,7 @@ export type EducationLinkingCollections = {
 export type EducationLinkingCollectionsCvCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<EducationLinkingCollectionsCvCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -749,6 +864,27 @@ export type EducationLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
+export enum EducationLinkingCollectionsCvCollectionOrder {
+  AgeAsc = 'age_ASC',
+  AgeDesc = 'age_DESC',
+  DateOfBirthAsc = 'dateOfBirth_ASC',
+  DateOfBirthDesc = 'dateOfBirth_DESC',
+  GenderAsc = 'gender_ASC',
+  GenderDesc = 'gender_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RoleAsc = 'role_ASC',
+  RoleDesc = 'role_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum EducationOrder {
   EndDateAsc = 'endDate_ASC',
@@ -915,6 +1051,7 @@ export type ExperienceLinkingCollections = {
 export type ExperienceLinkingCollectionsCvCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<ExperienceLinkingCollectionsCvCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -926,6 +1063,27 @@ export type ExperienceLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
+export enum ExperienceLinkingCollectionsCvCollectionOrder {
+  AgeAsc = 'age_ASC',
+  AgeDesc = 'age_DESC',
+  DateOfBirthAsc = 'dateOfBirth_ASC',
+  DateOfBirthDesc = 'dateOfBirth_DESC',
+  GenderAsc = 'gender_ASC',
+  GenderDesc = 'gender_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RoleAsc = 'role_ASC',
+  RoleDesc = 'role_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum ExperienceOrder {
   CompanyAsc = 'company_ASC',
@@ -1103,6 +1261,7 @@ export type InterestLinkingCollections = {
 export type InterestLinkingCollectionsCvCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<InterestLinkingCollectionsCvCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -1114,6 +1273,27 @@ export type InterestLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
+export enum InterestLinkingCollectionsCvCollectionOrder {
+  AgeAsc = 'age_ASC',
+  AgeDesc = 'age_DESC',
+  DateOfBirthAsc = 'dateOfBirth_ASC',
+  DateOfBirthDesc = 'dateOfBirth_DESC',
+  GenderAsc = 'gender_ASC',
+  GenderDesc = 'gender_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  RoleAsc = 'role_ASC',
+  RoleDesc = 'role_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum InterestOrder {
   NameAsc = 'name_ASC',
@@ -1390,6 +1570,113 @@ export type SysFilter = {
   publishedVersion_lte?: InputMaybe<Scalars['Float']>;
   publishedVersion_not?: InputMaybe<Scalars['Float']>;
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+};
+
+export type CfEducationNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfEducationNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfEducationNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  endDate_exists?: InputMaybe<Scalars['Boolean']>;
+  endDate_gt?: InputMaybe<Scalars['DateTime']>;
+  endDate_gte?: InputMaybe<Scalars['DateTime']>;
+  endDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  endDate_lt?: InputMaybe<Scalars['DateTime']>;
+  endDate_lte?: InputMaybe<Scalars['DateTime']>;
+  endDate_not?: InputMaybe<Scalars['DateTime']>;
+  endDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  school?: InputMaybe<Scalars['String']>;
+  school_contains?: InputMaybe<Scalars['String']>;
+  school_exists?: InputMaybe<Scalars['Boolean']>;
+  school_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  school_not?: InputMaybe<Scalars['String']>;
+  school_not_contains?: InputMaybe<Scalars['String']>;
+  school_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+  startDate_exists?: InputMaybe<Scalars['Boolean']>;
+  startDate_gt?: InputMaybe<Scalars['DateTime']>;
+  startDate_gte?: InputMaybe<Scalars['DateTime']>;
+  startDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  startDate_lt?: InputMaybe<Scalars['DateTime']>;
+  startDate_lte?: InputMaybe<Scalars['DateTime']>;
+  startDate_not?: InputMaybe<Scalars['DateTime']>;
+  startDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  studyField?: InputMaybe<Scalars['String']>;
+  studyField_contains?: InputMaybe<Scalars['String']>;
+  studyField_exists?: InputMaybe<Scalars['Boolean']>;
+  studyField_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  studyField_not?: InputMaybe<Scalars['String']>;
+  studyField_not_contains?: InputMaybe<Scalars['String']>;
+  studyField_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type CfExperienceNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfExperienceNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfExperienceNestedFilter>>>;
+  company?: InputMaybe<Scalars['String']>;
+  company_contains?: InputMaybe<Scalars['String']>;
+  company_exists?: InputMaybe<Scalars['Boolean']>;
+  company_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  company_not?: InputMaybe<Scalars['String']>;
+  company_not_contains?: InputMaybe<Scalars['String']>;
+  company_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description?: InputMaybe<Scalars['String']>;
+  description_contains?: InputMaybe<Scalars['String']>;
+  description_exists?: InputMaybe<Scalars['Boolean']>;
+  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  description_not?: InputMaybe<Scalars['String']>;
+  description_not_contains?: InputMaybe<Scalars['String']>;
+  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  endDate_exists?: InputMaybe<Scalars['Boolean']>;
+  endDate_gt?: InputMaybe<Scalars['DateTime']>;
+  endDate_gte?: InputMaybe<Scalars['DateTime']>;
+  endDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  endDate_lt?: InputMaybe<Scalars['DateTime']>;
+  endDate_lte?: InputMaybe<Scalars['DateTime']>;
+  endDate_not?: InputMaybe<Scalars['DateTime']>;
+  endDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
+  startDate_exists?: InputMaybe<Scalars['Boolean']>;
+  startDate_gt?: InputMaybe<Scalars['DateTime']>;
+  startDate_gte?: InputMaybe<Scalars['DateTime']>;
+  startDate_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  startDate_lt?: InputMaybe<Scalars['DateTime']>;
+  startDate_lte?: InputMaybe<Scalars['DateTime']>;
+  startDate_not?: InputMaybe<Scalars['DateTime']>;
+  startDate_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type CfInterestNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfInterestNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfInterestNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  icon_exists?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_exists?: InputMaybe<Scalars['Boolean']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name_not?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
 };
 
 export type AssetFragment = { __typename?: 'Asset', title?: string | null, description?: string | null, contentType?: string | null, fileName?: string | null, size?: number | null, url?: string | null, width?: number | null, height?: number | null } & { ' $fragmentName'?: 'AssetFragment' };
