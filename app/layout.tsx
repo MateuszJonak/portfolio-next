@@ -2,6 +2,7 @@ import React from 'react';
 import { Providers } from './providers';
 import { GRAY } from '../src/theme/colors';
 import { getCard } from '../api/getCard';
+import './globals.css';
 
 export default async function RootLayout({
   children,
